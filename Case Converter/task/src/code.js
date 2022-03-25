@@ -7,6 +7,7 @@ document.getElementById('upper-case').addEventListener('click', toUpper);
 document.getElementById('lower-case').addEventListener('click', toLower);
 document.getElementById('proper-case').addEventListener('click', toProper);
 document.getElementById('sentence-case').addEventListener('click', toSentence);
+document.getElementById('save-text-file').addEventListener('click', toFile);
 
 function toUpper () {
     let text = document.getElementById("text").value;
@@ -44,4 +45,20 @@ function capitalizeAll(s) {
     return s.split(' ').map((w) => {
         return capitalize(w.trim());
     }).join(' ').trim();
+}
+
+function download(filename, text) {
+    let elm = document.createElement('a');
+    elm.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    elm.setAttribute('download', filename);
+    elm.style.display = 'none';
+
+    document.body.appendChild(elm);
+    elm.click();
+    document.body.removeChild(elm);
+}
+
+function toFile() {
+    let text = document.getElementById("text").value;
+    download('text.txt', text);
 }
